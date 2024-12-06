@@ -16,7 +16,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { toast } from "@/hooks/use-toast";
-import updateHotwheels from "@/server/update-hotwheels";
 import getCurrentProducts from "@/server/get-current-products";
 import { NewDropsDialog } from "./new-drops-dialog";
 
@@ -39,33 +38,37 @@ export default function HotwheelsTable() {
 
   useEffect(() => {
     startFetch(() => {
-      getCurrentProducts().then((data) => {
+      return getCurrentProducts().then((data) => {
         setHotwheels(data.products);
         setUpdatedOn(data.updatedOn);
       });
     });
   }, []);
 
+  console.log(isUpdatePending);
+
   const handleUpdate = () => {
     startUpdate(() => {
-      updateHotwheels().then(({ products, newDrops, updatedOn }) => {
-        setHotwheels(products);
-        setNewDrops(newDrops);
-        if (updatedOn) setUpdatedOn(updatedOn);
-        if (newDrops.length) setOpenNewDropsDialog(true);
+      return fetch("/api/fetch-hotwheels")
+        .then((res) => res.json())
+        .then(({ products, newDrops, updatedOn }) => {
+          setHotwheels(products);
+          setNewDrops(newDrops);
+          if (updatedOn) setUpdatedOn(updatedOn);
+          if (newDrops.length) setOpenNewDropsDialog(true);
 
-        if (newDrops.length) {
-          toast({
-            title: "Updated!",
-            description: `Added ${newDrops.length} hotwheels!`,
-          });
-        } else {
-          toast({
-            title: "Updated!",
-            description: `There are no new hotwheels drops!`,
-          });
-        }
-      });
+          if (newDrops.length) {
+            toast({
+              title: "Updated!",
+              description: `Added ${newDrops.length} hotwheels!`,
+            });
+          } else {
+            toast({
+              title: "Updated!",
+              description: `There are no new hotwheels drops!`,
+            });
+          }
+        });
     });
   };
 
@@ -104,7 +107,7 @@ export default function HotwheelsTable() {
             ) : (
               <CloudUpload />
             )}
-            Update List
+            Update
           </Button>
         </div>
       </Alert>

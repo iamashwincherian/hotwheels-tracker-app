@@ -3,7 +3,7 @@
 import nodemailer from "nodemailer";
 import { URL } from "@/constants";
 
-const { SMTP_SERVER_USERNAME, SMTP_SERVER_PASSWORD } = process.env;
+const { SMTP_SERVER_USERNAME, SMTP_SERVER_PASSWORD, SEND_EMAIL } = process.env;
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -17,6 +17,8 @@ const transporter = nodemailer.createTransport({
 });
 
 export default async function sendEmail(newDrops: string[]) {
+  if (!(SEND_EMAIL && JSON.parse(SEND_EMAIL))) return;
+
   const makeEmailBody = () => {
     let body = `<h3>Here is the list of new hot wheel drops in <a href="${URL}">Karzanddolls</a>:</h3>`;
     let table =

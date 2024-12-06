@@ -40,8 +40,8 @@ export default function HotwheelsTable() {
       updateHotwheels().then(({ products, newDrops, updatedOn }) => {
         setHotwheels(products);
         setNewDrops(newDrops);
-        updatedOn && setUpdatedOn(updatedOn);
-        newDrops.length && setOpenNewDropsDialog(true);
+        if (updatedOn) setUpdatedOn(updatedOn);
+        if (newDrops.length) setOpenNewDropsDialog(true);
 
         if (newDrops.length) {
           toast({

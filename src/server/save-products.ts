@@ -4,7 +4,6 @@ import { promises as fs } from "fs";
 
 export default async function saveProducts(
   hotwheels: string[],
-  newDrops: string[]
 ) {
   const data = { hotwheels, updatedOn: new Date() };
   await fs.writeFile(

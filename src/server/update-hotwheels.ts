@@ -11,7 +11,7 @@ export default async function updateHotwheels() {
   if (products?.length) {
     newDrops = await parseProducts(products);
     if (newDrops.length) await sendEmail(newDrops);
-    updatedData = await saveProducts(products, newDrops);
+    updatedData = await saveProducts(products);
   }
 
   return {

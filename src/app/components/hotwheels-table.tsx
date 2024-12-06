@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useTransition } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, CloudUpload } from "lucide-react";
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -59,14 +59,14 @@ export default function HotwheelsTable() {
   };
 
   return (
-    <Card className="w-[500px] mt-4">
-      <CardContent className="my-4">
+    <Card className="max-w-[500px]">
+      <CardContent className="p-4 mt-0">
         <NewDropsDialog
           open={openNewDropsDialog}
           newDrops={newDrops}
           onClose={() => setOpenNewDropsDialog(false)}
         />
-        <Alert className="flex justify-between gap-8 mb-4">
+        <Alert className="flex justify-between items-center gap-8 mb-4">
           <div>
             <AlertTitle>Last updated:</AlertTitle>
             <AlertDescription className="text-muted-foreground">
@@ -89,7 +89,11 @@ export default function HotwheelsTable() {
               disabled={isPending}
               onClick={handleUpdate}
             >
-              {isPending && <Loader2 className="animate-spin" />}
+              {isPending ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <CloudUpload />
+              )}
               Update List
             </Button>
           </div>

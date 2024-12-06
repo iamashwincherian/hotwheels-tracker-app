@@ -29,12 +29,12 @@ export function NewDropsDialog({
             There are {newDrops.length} new hotwheels
           </DialogDescription>
         </DialogHeader>
-        <div className="max-h-96 overflow-auto border-slate-400">
+        <div className="max-h-96 overflow-auto">
           <table>
             <tbody>
               {newDrops.map((car) => (
                 <tr key={car}>
-                  <td className="border-[1px] border-slate-400 p-1">{car}</td>
+                  <td className="border p-1">{car}</td>
                 </tr>
               ))}
             </tbody>

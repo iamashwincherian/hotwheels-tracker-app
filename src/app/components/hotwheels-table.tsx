@@ -98,7 +98,7 @@ export default function HotwheelsTable() {
             </Button>
           </div>
         </Alert>
-        <Table className="border-neutral-950">
+        <Table className="border">
           <TableCaption></TableCaption>
           <TableHeader>
             <TableRow>

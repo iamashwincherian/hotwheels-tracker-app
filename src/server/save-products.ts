@@ -10,6 +10,10 @@ export default async function saveProducts(hotwheels: string[]) {
   const { blobs: cloudBlobs } = await list();
   const file = cloudBlobs.find((file) => file.pathname === DATA_FILE_NAME);
   if (file) del(file.downloadUrl);
-  await put(DATA_FILE_NAME, blob, { access: "public" });
+
+  await put(DATA_FILE_NAME, blob, {
+    access: "public",
+    contentType: "application/json",
+  });
   return data;
 }

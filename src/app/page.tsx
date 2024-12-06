@@ -1,24 +1,13 @@
 "use client";
 
+import getCurrentProducts from "@/server/get-current-products";
 import { useEffect, useState } from "react";
-import { getProducts } from "@/server/get-products";
-import parseProducts from "@/server/parse-products";
-import sendEmail from "@/server/send-email";
-import saveProducts from "@/server/save-products";
 
 export default function Home() {
   const [products, setProducts] = useState<string[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) => {
-      setProducts(data || []);
-      if (data?.length) {
-        parseProducts(data).then((newDrops) => {
-          if (newDrops.length) sendEmail(newDrops);
-          saveProducts(data, newDrops);
-        });
-      }
-    });
+    getCurrentProducts().then(setProducts);
   }, []);
 
   return (

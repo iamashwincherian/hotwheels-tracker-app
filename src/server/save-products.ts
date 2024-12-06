@@ -8,7 +8,7 @@ export default async function saveProducts(
 ) {
   await fs.writeFile(
     process.cwd() + "/src/data.json",
-    JSON.stringify({ hotwheels }, null, 2),
+    JSON.stringify({ hotwheels, updatedOn: new Date() }, null, 2),
     "utf8"
   );
 

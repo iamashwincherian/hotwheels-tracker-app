@@ -1,16 +1,9 @@
 "use server";
 
-import { promises as fs } from "fs";
-import createProductsStore from "@/server/create-products-store";
+import getCurrentProducts from "./get-current-products";
 
 export default async function parseProducts(products: string[]) {
-  let existingProducts: string[] = [];
-  try {
-    const file = await fs.readFile(process.cwd() + "/src/data.json", "utf8");
-    existingProducts = JSON.parse(file)["hotwheels"] || [];
-  } catch {
-    createProductsStore();
-  }
+  const existingProducts = await getCurrentProducts();
 
   const newDrops = products.filter(
     (product) => !existingProducts.includes(product)

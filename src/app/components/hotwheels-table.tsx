@@ -45,8 +45,6 @@ export default function HotwheelsTable() {
     });
   }, []);
 
-  console.log(isUpdatePending);
-
   const handleUpdate = () => {
     startUpdate(() => {
       return fetch("/api/fetch-hotwheels")

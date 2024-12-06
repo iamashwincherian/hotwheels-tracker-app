@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main>
       <div className="flex justify-between items-center p-4 border-b w-full">
-        <p className="text-lg">Hot wheels tracker App</p>
+        <p className="text-lg font-semibold">Hot wheels tracker App</p>
         <ThemeSwitcher />
       </div>
       <div className="p-4">

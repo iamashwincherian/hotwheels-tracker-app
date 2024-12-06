@@ -7,7 +7,9 @@ export default async function getCurrentProducts() {
   let existingProducts: string[] = [];
   let updatedOn = null;
   const { blobs } = await list();
-  const file = blobs.find((file) => file.pathname === "data.json");
+  const file = blobs.find(
+    (file) => file.pathname === process.env.DATA_FILE_NAME
+  );
 
   if (file) {
     const data = await fetch(file.downloadUrl).then((res) => res.json());

@@ -9,6 +9,6 @@ export default async function createProductsStore() {
     type: "application/json",
   });
 
-  await put("data.json", blob, { access: "public" });
+  await put(process.env.DATA_FILE_NAME, blob, { access: "public" });
   return DEFAULT_DATA;
 }

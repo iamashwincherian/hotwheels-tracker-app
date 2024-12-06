@@ -59,69 +59,64 @@ export default function HotwheelsTable() {
   };
 
   return (
-    <Card className="max-w-[500px]">
-      <CardContent className="p-4 mt-0">
-        <NewDropsDialog
-          open={openNewDropsDialog}
-          newDrops={newDrops}
-          onClose={() => setOpenNewDropsDialog(false)}
-        />
-        <Alert className="flex justify-between items-center gap-8 mb-4">
-          <div>
-            <AlertTitle>Last updated:</AlertTitle>
-            <AlertDescription className="text-muted-foreground">
-              {updatedOn
-                ? updatedOn?.toLocaleString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "2-digit",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false,
-                  })
-                : "Never"}
-            </AlertDescription>
-          </div>
-          <div>
-            <Button
-              variant="outline"
-              disabled={isPending}
-              onClick={handleUpdate}
-            >
-              {isPending ? (
-                <Loader2 className="animate-spin" />
-              ) : (
-                <CloudUpload />
-              )}
-              Update List
-            </Button>
-          </div>
-        </Alert>
-        <Table className="border">
-          <TableCaption></TableCaption>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
+    <div className="max-w-[600px] mx-auto">
+      <NewDropsDialog
+        open={openNewDropsDialog}
+        newDrops={newDrops}
+        onClose={() => setOpenNewDropsDialog(false)}
+      />
+      <Alert className="flex justify-between items-center gap-8 mb-4">
+        <div>
+          <AlertTitle>Last updated:</AlertTitle>
+          <AlertDescription className="text-muted-foreground">
+            {updatedOn
+              ? updatedOn?.toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "2-digit",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
+                  hour12: false,
+                })
+              : "Never"}
+          </AlertDescription>
+        </div>
+        <div>
+          <Button variant="outline" disabled={isPending} onClick={handleUpdate}>
+            {isPending ? <Loader2 className="animate-spin" /> : <CloudUpload />}
+            Update List
+          </Button>
+        </div>
+      </Alert>
+      <Table className="border">
+        <TableCaption>
+          Data from{" "}
+          <a href="https://karzanddolls.com/" target="_blank">
+            Karzanddolls.com
+          </a>
+        </TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {hotwheels.map((car) => (
+            <TableRow key={car}>
+              <TableCell>{car}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {hotwheels.map((car) => (
-              <TableRow key={car}>
-                <TableCell>{car}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TableCell className="flex justify-between">
-                Total
-                <p className="text-right">{hotwheels.length}</p>
-              </TableCell>
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </CardContent>
-    </Card>
+          ))}
+        </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell className="flex justify-between">
+              Total
+              <p className="text-right">{hotwheels.length}</p>
+            </TableCell>
+          </TableRow>
+        </TableFooter>
+      </Table>
+    </div>
   );
 }

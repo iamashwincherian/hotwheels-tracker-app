@@ -1,21 +1,14 @@
-"use client";
-
-import getCurrentProducts from "@/server/get-current-products";
-import { useEffect, useState } from "react";
+import HotwheelsTable from "./components/hotwheels-table";
 
 export default function Home() {
-  const [products, setProducts] = useState<string[]>([]);
-
-  useEffect(() => {
-    getCurrentProducts().then(setProducts);
-  }, []);
-
   return (
-    <div>
-      <h3>Hot wheels tracker App</h3>
-      {products.map((name) => (
-        <div key={name}>{name}</div>
-      ))}
-    </div>
+    <main>
+      <div className="p-4 border-b-[1px] border-b-slate-200 w-full">
+        <p className="text-lg">Hot wheels tracker App</p>
+      </div>
+      <div className="p-4">
+        <HotwheelsTable />
+      </div>
+    </main>
   );
 }

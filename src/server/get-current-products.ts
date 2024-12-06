@@ -5,12 +5,17 @@ import createProductsStore from "./create-products-store";
 
 export default async function getCurrentProducts() {
   let existingProducts: string[] = [];
+  let updatedOn = null;
+
   try {
     const file = await fs.readFile(process.cwd() + "/src/data.json", "utf8");
-    existingProducts = JSON.parse(file)["hotwheels"] || [];
+    const data = JSON.parse(file);
+    existingProducts = data.hotwheels;
+    updatedOn = data.updatedOn && new Date(data.updatedOn);
   } catch {
-    await createProductsStore();
+    const data = await createProductsStore();
+    updatedOn = data.updatedOn && new Date(data.updatedOn);
   }
 
-  return existingProducts;
+  return { products: existingProducts, updatedOn };
 }

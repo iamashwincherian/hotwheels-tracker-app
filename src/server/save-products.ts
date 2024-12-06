@@ -6,11 +6,12 @@ export default async function saveProducts(
   hotwheels: string[],
   newDrops: string[]
 ) {
+  const data = { hotwheels, updatedOn: new Date() };
   await fs.writeFile(
     process.cwd() + "/src/data.json",
-    JSON.stringify({ hotwheels, updatedOn: new Date() }, null, 2),
+    JSON.stringify(data, null, 2),
     "utf8"
   );
 
-  console.log(newDrops.length, " cars added!");
+  return data;
 }

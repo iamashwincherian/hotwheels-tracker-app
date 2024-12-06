@@ -5,12 +5,18 @@ import sendEmail from "@/server/send-email";
 
 export default async function updateHotwheels() {
   const products = await getProducts();
+  let updatedData = null;
+  let newDrops: string[] = [];
 
   if (products?.length) {
-    const newDrops = await parseProducts(products);
+    newDrops = await parseProducts(products);
     if (newDrops.length) await sendEmail(newDrops);
-    await saveProducts(products, newDrops);
+    updatedData = await saveProducts(products, newDrops);
   }
 
-  return products;
+  return {
+    updatedOn: updatedData?.updatedOn,
+    products: products,
+    newDrops,
+  };
 }

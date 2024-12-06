@@ -52,7 +52,7 @@ export default function HotwheelsTable() {
         .then(({ products, newDrops, updatedOn }) => {
           setHotwheels(products);
           setNewDrops(newDrops);
-          if (updatedOn) setUpdatedOn(updatedOn);
+          if (updatedOn) setUpdatedOn(new Date(updatedOn));
           if (newDrops.length) setOpenNewDropsDialog(true);
 
           if (newDrops.length) {

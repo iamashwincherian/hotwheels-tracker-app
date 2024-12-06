@@ -36,7 +36,7 @@ export default async function sendEmail(newDrops: string[]) {
   await transporter.sendMail({
     from: `Hot Wheels Tracker <${SMTP_SERVER_USERNAME}>`,
     to: SMTP_SERVER_USERNAME,
-    subject: "New Hotwheels Drop!",
+    subject: `New Hotwheels Drop! ${newDrops.length} new cars!`,
     html: makeEmailBody(),
   });
 

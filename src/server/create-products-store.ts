@@ -13,7 +13,7 @@ export default async function createProductsStore() {
   const fileBuffer = Buffer.from(arrayBuffer);
 
   const { error } = await supabase.storage
-    .from("hotwheels")
+    .from(process.env.SUPABASE_STORAGE_BUCKET_NAME)
     .upload(process.env.DATA_FILE_NAME, fileBuffer, {
       contentType: "application/json",
     });

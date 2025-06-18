@@ -10,9 +10,11 @@ export default async function saveProducts(hotwheels: string[]) {
   const arrayBuffer = await blob.arrayBuffer();
   const fileBuffer = Buffer.from(arrayBuffer);
 
-  await supabase.storage.from("hotwheels").upload(DATA_FILE_NAME!, fileBuffer, {
-    contentType: "application/json",
-    upsert: true,
-  });
+  await supabase.storage
+    .from(process.env.SUPABASE_STORAGE_BUCKET_NAME)
+    .upload(DATA_FILE_NAME, fileBuffer, {
+      contentType: "application/json",
+      upsert: true,
+    });
   return data;
 }

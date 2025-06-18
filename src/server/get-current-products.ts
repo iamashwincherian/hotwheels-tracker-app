@@ -8,7 +8,7 @@ export default async function getCurrentProducts() {
   let updatedOn = null;
 
   const { data: fileData, error: fileError } = await supabase.storage
-    .from("hotwheels")
+    .from(process.env.SUPABASE_STORAGE_BUCKET_NAME)
     .download(process.env.DATA_FILE_NAME);
 
   if (fileData && !fileError) {

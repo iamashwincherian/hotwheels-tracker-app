@@ -1,23 +1,25 @@
 "use server";
 
-import { list } from "@vercel/blob";
+import { supabase } from "./supabase-client";
 import createProductsStore from "./create-products-store";
 
 export default async function getCurrentProducts() {
   let existingProducts: string[] = [];
   let updatedOn = null;
-  const { blobs } = await list();
-  const file = blobs.find(
-    (file) => file.pathname === process.env.DATA_FILE_NAME
-  );
 
-  if (file) {
-    const data = await fetch(file.downloadUrl).then((res) => res.json());
-    existingProducts = data.hotwheels;
-    updatedOn = data.updatedOn && new Date(data.updatedOn);
+  const { data: fileData, error: fileError } = await supabase.storage
+    .from("hotwheels")
+    .download(process.env.DATA_FILE_NAME);
+
+  if (fileData && !fileError) {
+    const content = await fileData.text();
+    const parsed = JSON.parse(content);
+    existingProducts = parsed.hotwheels;
+    updatedOn = parsed.updatedOn ? new Date(parsed.updatedOn) : null;
   } else {
     const data = await createProductsStore();
-    updatedOn = data.updatedOn && new Date(data.updatedOn);
+    existingProducts = data.hotwheels;
+    updatedOn = data.updatedOn ? new Date(data.updatedOn) : null;
   }
 
   return { products: existingProducts, updatedOn };

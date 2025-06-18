@@ -7,7 +7,9 @@ declare global {
       SMTP_SERVER_PASSWORD: string;
       BLOB_READ_WRITE_TOKEN: string;
       DATA_FILE_NAME: string;
-      SEND_EMAIL: bool;
+      SEND_EMAIL: string;
+      NEXT_PUBLIC_SUPABASE_URL: string;
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: string;
     }
   }
 }
